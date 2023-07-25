@@ -9,7 +9,7 @@ const ExtractJWT = jwtStrategy.ExtractJwt;
 const cookieExtractor = req => {
     let token = null;
     if (req && req.cookies) {
-        token = req.cookies['jwtCookieToken'];
+        token = req.cookies[process.env.JWT_COOKIE_KEY];
     }
     return token;
 };
@@ -19,7 +19,7 @@ const initPassport = () => {
 
     const jwtOptions = {
         jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
-        secretOrKey: 'SecretKEY',
+        secretOrKey:  process.env.JWT_KEY,
     };
 
     passport.use('current', new JWTStrategy(jwtOptions, async (jwt_payload, done) => {
@@ -33,10 +33,9 @@ const initPassport = () => {
 
 const initPassportGithub = () => {
     passport.use('github', new GitHubStrategy({ 
-        clientID: 'Iv1.a60f51cda4ec8103',
-        //TODO ACA SE DEBE REMPLZAR '******' POR EL ClientSecrect
-        clientSecret: '******',
-        callbackUrl: 'http://localhost:8080/api/sessions/githubcallback' },
+        clientID: process.env.GITHUB_CLIENT_ID,        
+        clientSecret:  process.env.GITHUB_CLIENT_SECRET,
+        callbackUrl: process.env.GITHUB_CALLBACK_URL},
     async(accessToken, refreshToken, profile, done) => {
         try{
             let user = await userManager.getUserByEmail(profile._json.email)

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-let url = "mongodb+srv://userTest:ctrPdIc7sTCimSvx@ecommerce.zaf9sgy.mongodb.net/?retryWrites=true&w=majority"
+let url = process.env.DB_MONGO
 
 module.exports = {
     connectDB: () => {

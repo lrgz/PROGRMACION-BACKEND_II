@@ -1,4 +1,9 @@
 /**
+ * DOTENV
+ */
+
+const dotenv = require('dotenv').config()
+/**
  * SECCION IMPORT
  */
 const express = require('express')
@@ -25,7 +30,7 @@ const { initPassport, initPassportGithub } = require('./config/passport')
 /**
  * DEFINO PUERTO DE LA APP
  */
-const PORT = 8080
+const PORT =  process.env.PORT
 
 /**
  * CONFIGURO LA APP
@@ -62,20 +67,6 @@ app.use(express.urlencoded({extended: true}))
 app.use('/static', express.static(__dirname+'/public'))
 app.use(cookieParser())
 
-app.use(session({
-    store: mongoStore.create({                   
-        mongoUrl: 'mongodb+srv://userTest:ctrPdIc7sTCimSvx@ecommerce.zaf9sgy.mongodb.net/?retryWrites=true&w=majority',
-        mongoOptions: {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        },
-        ttl: 3600,
-    }),
-    secret: 'pwd123',
-    resave: true,
-    saveUninitialized: true
-}))
-
 
 
 initPassport()
@@ -88,10 +79,7 @@ app.use(passport.session())
  * CONFIGURO LA RUTAS
  */
 
-app.use('/api/products', productRouter)
-app.use('/api/carts', cartRouter)
-app.use('/api/sessions', sessionsRouter)
-app.use('/', viewsRouter)
+app.use(mainRouter)
 
 
 app.use("*", (req, res) => {
