@@ -6,7 +6,7 @@ const SessionsRouter = require('./sessions')
 
 const productRouter = new ProductRouter()
 const cartRouter = new CartRouter()
-const viewsRouter = new ViewsRouter()
+//const viewRouter = new viewsRouter()
 const sessionsRouter = new SessionsRouter()
 
 const mainRouter = express.Router()

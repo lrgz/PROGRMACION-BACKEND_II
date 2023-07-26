@@ -14,6 +14,7 @@ const cartRouter = require('./routers/carts')
 const viewsRouter = require('./routers/views')
 const sessionsRouter = require('./routers/sessions')
 
+
 const socketProduct = require('./utils/socketProducts')
 const socketChat = require('./utils/socketChat')
 
@@ -25,7 +26,7 @@ const mongoStore = require('connect-mongo')
 
 const passport = require('passport')
 const { initPassport, initPassportGithub } = require('./config/passport')
-
+const mainRouter = require('./routers/index')
 
 /**
  * DEFINO PUERTO DE LA APP

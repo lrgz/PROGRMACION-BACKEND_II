@@ -1,5 +1,5 @@
 const RouterClass = require('./routeClass')
-const cartController = require('../controllers/cartController')
+const cartController = require('../controller/cartsController')
 
 class CartRouter extends RouterClass {
     init(){

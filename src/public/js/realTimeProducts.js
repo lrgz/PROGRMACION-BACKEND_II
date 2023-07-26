@@ -4,7 +4,7 @@ const socket = io()
 socket.on('products', data =>{
     const div = document.querySelector('#products')
     let products = ''
-    data.forEach( product => {
+    data.docs.forEach( product => {
         products += `
         <li class="flex justify-between">
             <div>
