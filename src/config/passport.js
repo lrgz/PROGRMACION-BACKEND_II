@@ -1,7 +1,10 @@
 const passport = require('passport')
 const userManager = require('../dao/mongo/userMongo')
-const GitHubStrategy = require('passport-github2')
+const GitHubStrategy = require('passport-github2').Strategy
 const jwtStrategy = require('passport-jwt')
+
+//const userManager = new UserManager
+
 
 const JWTStrategy = jwtStrategy.Strategy;
 const ExtractJWT = jwtStrategy.ExtractJwt;
@@ -35,10 +38,11 @@ const initPassportGithub = () => {
     passport.use('github', new GitHubStrategy({ 
         clientID: process.env.GITHUB_CLIENT_ID,        
         clientSecret:  process.env.GITHUB_CLIENT_SECRET,
-        callbackUrl: process.env.GITHUB_CALLBACK_URL},
+        callbackUrl: process.env.GITHUB_CALLBACK_URL,
+        session: false },
     async(accessToken, refreshToken, profile, done) => {
         try{
-            let user = await userManager.getUserByEmail(profile._json.email)
+            const user = await userManager.getUserByEmail(profile._json.email)
             if(!user){
                 let newUser = {                    
                     first_name: profile._json.name ,

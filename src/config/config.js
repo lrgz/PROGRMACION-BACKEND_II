@@ -1,13 +1,13 @@
-const mongoose = require('mongoose')
+const { MongoSingleton } = require('./mongoSingleton')
 
-let url = process.env.DB_MONGO
-
-module.exports = {
-    connectDB: () => {
-        mongoose.connect(url)
-        console.log("Connected a el motor de datos");
+const mongoInstance = async () => {
+    try{
+        await MongoSingleton.getInstance()
+    }catch(err){
+        console.log(err);
     }
 }
 
+module.exports = { mongoInstance }
 
 

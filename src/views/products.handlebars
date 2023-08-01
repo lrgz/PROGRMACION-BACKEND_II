@@ -7,8 +7,7 @@
         <a href="/api/sessions/logout" class="my-2 bg-gray-700 hover:bg-gray-500 text-white font-medium uppercase py-1 px-2 rounded cursor-pointer">Logout</a>
     </div>
     {{/if}}
-    <h1 class="font-semibold text-4xl text-gray-700 text-center uppercase my-5">Products</h1>
-    <h2 class="font-semibold text-xl text-gray-700 text-center my-5">The products will be added to the cart: 648a517579b570790b33259e</h2>
+    <h1 class="font-semibold text-4xl text-gray-700 text-center uppercase my-5">Products</h1>    
     <ul class="mt-4">
         {{#if payload}}
             {{#each payload}}
@@ -23,7 +22,7 @@
                         <p class="">STOCK: {{stock}}</p>
                         <p class="">CATEGORY: {{category}}</p>
                         <p class="">Nº OF THUMBNAILS: {{thumbnails.length}}</p>
-                        <form action="/api/carts/648a517579b570790b33259e/product/{{this._id}}" method="post">
+                        <form action="/api/carts/{{../session.cart}}/product/{{this._id}}" method="post">
                             <button type="submit" id={{_id}} class="mt-3 bg-green-700 hover:bg-green-500 text-white font-medium uppercase py-1 px-2 rounded cursor-pointer addToCart">Add to cart</button>
                         </form>
                     </div>

@@ -37,7 +37,7 @@ const PORT =  process.env.PORT
  * CONFIGURO LA APP
  */
 const app = express()
-objectConfig.connectDB()
+objectConfig.mongoInstance()
 
 /*** 
 * ARRANQUE APLICACION

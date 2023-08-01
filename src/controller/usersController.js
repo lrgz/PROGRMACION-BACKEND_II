@@ -1,3 +1,4 @@
+const UserDto = require('../dto/userDTO')
 const { userService, cartService } = require('../service')
 const { createHash, isValidPassword } = require('../utils/bcrypt')
 const { generateToken } = require('../utils/jwt')
@@ -53,8 +54,9 @@ class UserController {
     }
 
     current = (req, res) => {
-        const currentUser = req.user;
-        return { currentUser }
+        const user = req.user;
+        const { first_name, last_name, email, role  } = new UserDto(user)
+        return {first_name, last_name, email, role}        
     }
 }
 
