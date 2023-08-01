@@ -6,7 +6,7 @@ const SessionsRouter = require('./sessions')
 
 const productRouter = new ProductRouter()
 const cartRouter = new CartRouter()
-//const viewRouter = new viewsRouter()
+const viewRouter = new viewsRouter()
 const sessionsRouter = new SessionsRouter()
 
 const mainRouter = express.Router()
@@ -14,7 +14,7 @@ const mainRouter = express.Router()
 mainRouter.use('/api/products', productRouter.getRouter())
 mainRouter.use('/api/carts', cartRouter.getRouter())
 mainRouter.use('/api/sessions', sessionsRouter.getRouter())
-mainRouter.use('/', viewsRouter)
+mainRouter.use('/', viewRouter.getRouter())
 mainRouter.use('*', (req, res, next) => {
     res.status(404).send({status: "error", error: 'Requested path not found',});
 })

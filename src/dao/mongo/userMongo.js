@@ -37,6 +37,15 @@ class UserManagerMongo{
         }
     }
 
+    async getUserByCartId(cid){
+        try{
+            return await userModel.findOne({cart: cid})
+        }catch(error){
+            return new Error(error)
+        }
+    }
+
+
     async addUser(user){
         try{
             return await userModel.create(user)

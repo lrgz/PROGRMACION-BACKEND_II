@@ -19,7 +19,7 @@ class ProductRouter extends RouterClass {
             }
         })
 
-        this.post('/', ['PUBLIC'], async (req, res) => {
+        this.post('/', ['ADMIN'], async (req, res) => {
             try{
                 res.sendSuccess(await productController.create(req, res))
             }catch(error){
@@ -27,7 +27,7 @@ class ProductRouter extends RouterClass {
             }
         })
 
-        this.put('/:pid', ['PUBLIC'], async (req, res) => {
+        this.put('/:pid', ['ADMIN'], async (req, res) => {
             try{
                 res.sendSuccess(await productController.update(req, res))
             }catch(error){
@@ -35,7 +35,7 @@ class ProductRouter extends RouterClass {
             }
         })
 
-        this.delete('/:pid', ['PUBLIC'], async (req, res) => {
+        this.delete('/:pid', ['ADMIN'], async (req, res) => {
             try{
                 res.sendSuccess(await productController.delete(req, res))
             }catch(error){

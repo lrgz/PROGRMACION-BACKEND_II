@@ -5,7 +5,8 @@ class CartRouter extends RouterClass {
     init(){
         this.get('/:cid', ['PUBLIC'], async (req, res) => {
             try{
-                res.sendSuccess(await cartController.getById(req, res))
+                const payload = await cartController.getById(req, res)
+                res.sendSuccess(payload)
             }catch(error){
                 res.sendServerError(error.message)
             }
@@ -19,7 +20,7 @@ class CartRouter extends RouterClass {
             }
         })
 
-        this.post('/:cid/products/:pid', ['PUBLIC'], async (req, res) => {
+        this.post('/:cid/products/:pid', ['USER'], async (req, res) => {
             try{
                 res.sendSuccess(await cartController.addProduct(req, res))
             }catch(error){
@@ -59,7 +60,16 @@ class CartRouter extends RouterClass {
                 res.sendServerError(error.message)
             }
         })
-    }
+
+        this.get('/:cid/purchase', ['PUBLIC'], async (req, res) => {
+            try{
+                res.sendSuccess(await cartController.generatePurchase(req, res))
+            }catch(error){
+                res.sendServerError(error.message)
+            }
+        })
+
+    }   
 }
 
 module.exports = CartRouter;

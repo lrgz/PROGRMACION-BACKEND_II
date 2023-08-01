@@ -3,6 +3,14 @@ const { productService } = require('../service')
 class ProductController {
     get = async (req, res) => {
         try{
+            let queryPage = ''
+            if (req.query.page) {
+                queryPage = parseInt(req.query.page);
+                if (isNaN(queryPage) || queryPage < 1) {
+                    throw new Error('Invalid page number');
+                }
+            }
+
             let query = {}
             if(req.query.query === undefined){ 
                 query = {}
@@ -32,9 +40,18 @@ class ProductController {
     
             const products = await productService.getProducts(query, options)
             const { docs, totalPages, prevPage, nextPage, page, hasPrevPage, hasNextPage } = products
-            hasPrevPage === false ? prevLink = null : prevLink = `/api/products?page=${parseInt(prevPage)}`
-            hasNextPage === false ? nextLink = null : nextLink = `/api/products?page=${parseInt(nextPage)}`
-            return { products: docs, totalPages, prevPage, nextPage, page, hasPrevPage, hasNextPage, prevLink, nextLink }
+
+            if(query.status !== undefined){ // if query.status exists
+                hasPrevPage === false ? prevLink = null : prevLink = `/products?page=${parseInt(prevPage)}&limit=${options.limit}&sort=${req.query.sort}&query=${query.status}`
+                hasNextPage === false ? nextLink = null : nextLink = `/products?page=${parseInt(nextPage)}&limit=${options.limit}&sort=${req.query.sort}&query=${query.status}`
+            }else if(query.category !== undefined){ // if query.category exists
+                hasPrevPage === false ? prevLink = null : prevLink = `/products?page=${parseInt(prevPage)}&limit=${options.limit}&sort=${req.query.sort}&query=${query.category}`
+                hasNextPage === false ? nextLink = null : nextLink = `/products?page=${parseInt(nextPage)}&limit=${options.limit}&sort=${req.query.sort}&query=${query.category}`
+            }else{ // if there isn't query values
+                hasPrevPage === false ? prevLink = null : prevLink = `/products?page=${parseInt(prevPage)}&limit=${options.limit}&sort=${req.query.sort}`
+                hasNextPage === false ? nextLink = null : nextLink = `/products?page=${parseInt(nextPage)}&limit=${options.limit}&sort=${req.query.sort}`
+            }
+            return { products: docs, totalPages, prevPage, nextPage, page, hasPrevPage, hasNextPage, prevLink, nextLink, session: req.user }
         }catch(error){
             return error
         }

@@ -1,46 +1,43 @@
 const socket = io()
-let userEmail = ''
 
-Swal.fire({
-    title: 'Tell us your email',
-    input: 'email',
-    inputPlaceholder: 'Enter your email address',
-    inputValidator: (value) => {
-        return !value && 'The email is required to chat'
-    },
-    allowOutsideClick: false,
-    onOpen: (modal) => {
-        modal.querySelector('input').focus()
-    },
-    preConfirm: (value) => {
-        if (/\S+@\S+\.\S+/.test(value)) {
-            return value.trim()
-        } else {
-            Swal.showValidationMessage('Please enter a valid email address')
-            return false
-        }
+let userEmail, userRole
+
+fetchUserData = async () => {
+    try{
+        const res = await fetch('/api/sessions/current')
+            if (res.ok) {
+                const data = await res.json()
+                userEmail = data.payload.email
+                userRole = data.payload.role
+
+                if(userRole.toUpperCase() === 'ADMIN'){
+                    input.disabled = true
+                    input.placeholder = "Admins can't send messages";
+                }
+            } else { throw new Error('Error requesting user data'); }
+    }catch(error){
+        throw error
     }
-}).then(result => {
-    userEmail = result.value
-    socket.emit('authenticated', userEmail)
-})
+}
 
-
-const input  = document.getElementById('text')
+const input = document.getElementById('text')
 const log = document.getElementById('messages')
 const date = new Date()
+const formattedDate = `${date.getHours()}:${date.getMinutes()}/${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 
-input.addEventListener('keyup',evt=>{
-    if(evt.key === "Enter"){
-        socket.emit('message', {email: userEmail, message: input.value, createdAt: date})
-        input.value= ""
+fetchUserData()
+
+input.addEventListener('keyup', evt => {
+    if (evt.key === "Enter") {
+        socket.emit('message', { email: userEmail, message: input.value, createdAt: formattedDate })
+        input.value = ""
     }
 })
 
-socket.on('log', data =>{
-    let logs=''
-    data.logs.forEach(log =>{
+socket.on('log', data => {
+    let logs = ''
+    data.logs.forEach(log => {
         logs += `<li class="w-100 bg-gray-200 py-2 px-1 rounded my-2 flex justify-between items-center"><p class="block">${log.email} says: ${log.content}</p> <span class="block text-sm text-gray-400">${log.createdAt}</span></li>`
     })
-    log.innerHTML=logs
+    log.innerHTML = logs
 })
