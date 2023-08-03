@@ -20,7 +20,7 @@ class SessionRouter extends RouterClass {
             try{
                 res.sendSuccess(await userController.register(req, res))
             }catch(error){
-                res.sendServerError(error.message)
+                res.sendServerError(error)
             }
         })
 
@@ -28,7 +28,7 @@ class SessionRouter extends RouterClass {
             try{
                 res.sendSuccess(await userController.login(req, res))
             }catch(error){
-                res.sendServerError(error.message)
+                res.sendServerError(error)
             }
         })
 
@@ -36,7 +36,7 @@ class SessionRouter extends RouterClass {
             try{
                 res.sendSuccess(await userController.logout(req, res))
             }catch(error){
-                res.sendServerError(error.message)
+                res.sendServerError(error)
             }
         })
 
@@ -49,7 +49,7 @@ class SessionRouter extends RouterClass {
                 res.cookie(process.env.JWT_COOKIE_KEY, token, {maxAge: 3600000, httpOnly: true})
                 res.redirect('/products')
             }catch(error){
-                res.sendServerError(error.message)
+                res.sendServerError(error)
             }
         })
     }

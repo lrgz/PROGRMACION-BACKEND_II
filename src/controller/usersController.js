@@ -2,11 +2,27 @@ const UserDto = require('../dto/userDTO')
 const { userService, cartService } = require('../service')
 const { createHash, isValidPassword } = require('../utils/bcrypt')
 const { generateToken } = require('../utils/jwt')
+const CustomError = require('../utils/Errors/errorMessage')
+const Errors = require('../utils/Errors/errors')
+const { generateUserErrorInfo } = require('../utils/Errors/errorMessage')
+
 
 class UserController {
-    register = async(req, res) => {
+    register = async(req, res,next) => {
         const { first_name, last_name, email, password, date_of_birth } = req.body
         try{
+            const { first_name, last_name, email, password, date_of_birth } = req.body
+
+            if(!first_name || !last_name || !email){
+                CustomError.createError({
+                    name: 'User creation error',
+                    cause: generateUserErrorInfo({first_name, last_name, email}),
+                    message: 'Error trying to create a user',
+                    code: Errors.INVALID_TYPE_ERROR
+                })
+            }
+
+
             const user = await userService.getUserByEmail(email)
             if(user) return 'A user already exists with that email' 
 
@@ -25,11 +41,11 @@ class UserController {
             let result = await userService.addUser(newUser)
             return { result }
         }catch(error){
-            return error
+            next(error)
         }
     }
 
-    login = async(req, res) => {
+    login = async(req, res,next) => {
         const { email, password } = req.body
     
         const userDB = await userService.getUserByEmail(email)
@@ -48,12 +64,12 @@ class UserController {
             }
     }
 
-    logout = (req, res)=>{
+    logout = (req, res,next)=>{
         res.clearCookie(process.env.JWT_COOKIE_KEY)
         return 'Succesfully logged out'
     }
 
-    current = (req, res) => {
+    current = (req, res,next) => {
         const user = req.user;
         const { first_name, last_name, email, role  } = new UserDto(user)
         return {first_name, last_name, email, role}        
