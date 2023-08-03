@@ -7,7 +7,7 @@ class ProductRouter extends RouterClass {
             try{
                 res.sendSuccess(await productController.get(req, res))
             }catch(error){
-                res.sendServerError(error.message)
+                res.sendServerError(error)
             }
         })
 
@@ -15,15 +15,15 @@ class ProductRouter extends RouterClass {
             try{
                 res.sendSuccess(await productController.getById(req, res))
             }catch(error){
-                res.sendServerError(error.message)
+                res.sendServerError(error)
             }
         })
 
-        this.post('/', ['ADMIN'], async (req, res) => {
+        this.post('/', ['ADMIN'], async (req, res,next) => {
             try{
                 res.sendSuccess(await productController.create(req, res))
             }catch(error){
-                res.sendServerError(error.message)
+                res.sendServerError(error)
             }
         })
 
@@ -31,7 +31,7 @@ class ProductRouter extends RouterClass {
             try{
                 res.sendSuccess(await productController.update(req, res))
             }catch(error){
-                res.sendServerError(error.message)
+                res.sendServerError(error)
             }
         })
 
@@ -39,7 +39,7 @@ class ProductRouter extends RouterClass {
             try{
                 res.sendSuccess(await productController.delete(req, res))
             }catch(error){
-                res.sendServerError(error.message)
+                res.sendServerError(error)
             }
         })
     }
