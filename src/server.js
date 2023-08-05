@@ -21,7 +21,6 @@ const socketChat = require('./utils/socketChat')
 const objectConfig = require('./config/config')
 
 const cookieParser = require('cookie-parser')
-const session = require('express-session')
 const mongoStore = require('connect-mongo') 
 
 const passport = require('passport')
