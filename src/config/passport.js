@@ -1,9 +1,10 @@
 const passport = require('passport')
-const userManager = require('../dao/mongo/userMongo')
+const UserManager = require('../dao/mongo/userMongo')
 const GitHubStrategy = require('passport-github2').Strategy
 const jwtStrategy = require('passport-jwt')
 
-//const userManager = new UserManager
+
+const userManager = new UserManager
 
 
 const JWTStrategy = jwtStrategy.Strategy;

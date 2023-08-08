@@ -9,10 +9,7 @@ const dotenv = require('dotenv').config()
 const express = require('express')
 const handlebars = require('express-handlebars')
 const { Server } = require('socket.io')
-const productRouter = require('./routers/products')
-const cartRouter = require('./routers/carts')
-const viewsRouter = require('./routers/views')
-const sessionsRouter = require('./routers/sessions')
+
 
 
 const socketProduct = require('./utils/socketProducts')
@@ -21,7 +18,7 @@ const socketChat = require('./utils/socketChat')
 const objectConfig = require('./config/config')
 
 const cookieParser = require('cookie-parser')
-const mongoStore = require('connect-mongo') 
+
 
 const passport = require('passport')
 const { initPassport, initPassportGithub } = require('./config/passport')
@@ -72,7 +69,6 @@ app.use(cookieParser())
 initPassport()
 initPassportGithub()
 app.use(passport.initialize())
-app.use(passport.session())
 
 
 /**

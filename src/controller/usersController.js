@@ -9,7 +9,9 @@ const { generateUserErrorInfo } = require('../utils/Errors/errorMessage')
 
 class UserController {
     register = async(req, res,next) => {
+        
         const { first_name, last_name, email, password, date_of_birth } = req.body
+        
         try{
             const { first_name, last_name, email, password, date_of_birth } = req.body
 
@@ -22,8 +24,8 @@ class UserController {
                 })
             }
 
-
-            const user = await userService.getUserByEmail(email)
+            
+            const user = await userService.getByEmail(email)
             if(user) return 'A user already exists with that email' 
 
             let role = ''
@@ -38,7 +40,7 @@ class UserController {
                 cart: await cartService.createCart(),
                 role
             }
-            let result = await userService.addUser(newUser)
+            let result = await userService.create(newUser)
             return { result }
         }catch(error){
             next(error)
@@ -48,7 +50,7 @@ class UserController {
     login = async(req, res,next) => {
         const { email, password } = req.body
     
-        const userDB = await userService.getUserByEmail(email)
+        const userDB = await userService.getByEmail(email)
             try{
                 if(!userDB) return res.send({status: 'error', message: 'There is not a user with the email: ' + email})
                 
