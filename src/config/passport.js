@@ -42,7 +42,7 @@ const initPassportGithub = () => {
         callbackUrl: process.env.GITHUB_CALLBACK_URL,
         session: false },
     async(accessToken, refreshToken, profile, done) => {
-        try{
+        try{ 
             const user = await userManager.getUserByEmail(profile._json.email)
             if(!user){
                 let newUser = {                    

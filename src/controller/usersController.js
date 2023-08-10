@@ -8,10 +8,7 @@ const { generateUserErrorInfo } = require('../utils/Errors/errorMessage')
 
 
 class UserController {
-    register = async(req, res,next) => {
-        
-        const { first_name, last_name, email, password, date_of_birth } = req.body
-        
+
         try{
             const { first_name, last_name, email, password, date_of_birth } = req.body
 
@@ -37,7 +34,7 @@ class UserController {
                 date_of_birth,
                 email,
                 password: createHash(password),
-                cart: await cartService.createCart(),
+                cart: await cartService.create(),
                 role
             }
             let result = await userService.create(newUser)

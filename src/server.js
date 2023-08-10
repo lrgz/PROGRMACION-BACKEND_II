@@ -1,28 +1,25 @@
 /**
- * DOTENV
- */
-
-const dotenv = require('dotenv').config()
-/**
  * SECCION IMPORT
  */
 const express = require('express')
+const objectConfig = require('./config/config')
+const { addLogger, logger } = require('./config/logger')
 const handlebars = require('express-handlebars')
 const { Server } = require('socket.io')
 
 
+const mainRouter = require('./routers/index')
 
 const socketProduct = require('./utils/socketProducts')
 const socketChat = require('./utils/socketChat')
 
-const objectConfig = require('./config/config')
 
 const cookieParser = require('cookie-parser')
 
 
 const passport = require('passport')
 const { initPassport, initPassportGithub } = require('./config/passport')
-const mainRouter = require('./routers/index')
+
 
 /**
  * DEFINO PUERTO DE LA APP
@@ -33,6 +30,7 @@ const PORT =  process.env.PORT
  * CONFIGURO LA APP
  */
 const app = express()
+app.use(addLogger)
 objectConfig.mongoInstance()
 
 /*** 
