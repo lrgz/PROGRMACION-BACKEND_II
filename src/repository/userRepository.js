@@ -10,6 +10,7 @@ class UserRepository{
 
     async create(newUser){
 
+
         const userToAdd = new UserDto(newUser)
 
         const result = await this.dao.addUser(userToAdd)
@@ -45,8 +46,9 @@ class UserRepository{
 
     async getByEmail(email){
 
+        
         const result = await this.dao.getUserByEmail(email)
-
+        
         return result
 
     }
@@ -57,6 +59,7 @@ class UserRepository{
     async getByLogin(email, pass){
 
         const result = await this.dao.getUserByLogin(email, pass)
+        
 
         return result
 

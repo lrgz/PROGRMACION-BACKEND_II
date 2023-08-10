@@ -7,6 +7,7 @@ const { addLogger, logger } = require('./config/logger')
 const handlebars = require('express-handlebars')
 const { Server } = require('socket.io')
 
+
 const mainRouter = require('./routers/index')
 
 const socketProduct = require('./utils/socketProducts')
@@ -66,7 +67,6 @@ app.use(cookieParser())
 initPassport()
 initPassportGithub()
 app.use(passport.initialize())
-app.use(passport.session())
 
 
 /**
