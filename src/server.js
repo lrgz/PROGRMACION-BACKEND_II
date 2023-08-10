@@ -7,10 +7,7 @@ const { addLogger, logger } = require('./config/logger')
 
 const handlebars = require('express-handlebars')
 const { Server } = require('socket.io')
-const productRouter = require('./routers/products')
-const cartRouter = require('./routers/carts')
-const viewsRouter = require('./routers/views')
-const sessionsRouter = require('./routers/sessions')
+
 
 const mainRouter = require('./routers/index')
 
