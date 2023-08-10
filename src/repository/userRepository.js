@@ -1,8 +1,5 @@
 const UserDto = require('../dto/userDTO')
 
-
-
-
 class UserRepository{
 
     constructor(dao){
@@ -10,9 +7,6 @@ class UserRepository{
         this.dao = dao
 
     }
-
-
-
 
     async create(newUser){
 

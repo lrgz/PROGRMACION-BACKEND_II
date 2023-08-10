@@ -29,7 +29,7 @@ socket.on('products', data =>{
     } )
     div.innerHTML = products
 
-    // Delete products
+    
     const deleteButtons = document.querySelectorAll('.deleteButton')
     deleteButtons.forEach(button => {
         button.addEventListener("click", e => {
@@ -39,7 +39,7 @@ socket.on('products', data =>{
     })
 })
 
-// Add products
+
 const form = document.querySelector('#form')
 form.addEventListener('submit', e => {
     e.preventDefault()

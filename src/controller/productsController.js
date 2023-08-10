@@ -58,7 +58,7 @@ class ProductController {
             }
             return { products: docs, totalPages, prevPage, nextPage, page, hasPrevPage, hasNextPage, prevLink, nextLink, session: req.user }
         }catch(error){
-            return error
+            throw error
         }
     }
 
@@ -67,7 +67,7 @@ class ProductController {
             const product = await productService.getProductById(req.params.pid)
             return { product }
         }catch(error){
-            return error
+            throw error
         }
     }
 
@@ -97,7 +97,7 @@ class ProductController {
             const updatedProduct = await productService.updateProduct(req.params.pid, product)
             return { updatedProduct }
         }catch (error){
-            return error
+            throw error
         }
     }
 
@@ -106,7 +106,7 @@ class ProductController {
             const deletedProduct = await productService.deleteProduct(req.params.pid)
             return { deletedProduct }
         }catch(error){
-            return error
+            throw error
         }
     }
 }
