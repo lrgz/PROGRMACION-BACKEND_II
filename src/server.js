@@ -7,7 +7,6 @@ const { addLogger, logger } = require('./config/logger')
 const handlebars = require('express-handlebars')
 const { Server } = require('socket.io')
 
-
 const mainRouter = require('./routers/index')
 
 const socketProduct = require('./utils/socketProducts')
