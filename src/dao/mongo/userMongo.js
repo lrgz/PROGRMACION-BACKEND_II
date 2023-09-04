@@ -31,6 +31,7 @@ class UserManagerMongo{
 
     async getUserByLogin(email, password){
         try{
+            console.log("estyo n mondo login")
             return await userModel.findOne({email: email, password: password})
         }catch (error) {
             return new Error(error)
