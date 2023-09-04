@@ -21,6 +21,11 @@ const productSchema = new mongoose.Schema({
         type: String,
         unique: true,
         required: true,
+    },
+    owner: {
+        type: String,
+        ref: 'users',
+        default: 'admin'
     }
 })
 

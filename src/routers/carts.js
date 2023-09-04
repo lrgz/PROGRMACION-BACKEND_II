@@ -20,7 +20,7 @@ class CartRouter extends RouterClass {
             }
         })
 
-        this.post('/:cid/products/:pid', ['USER'], async (req, res) => {
+        this.post('/:cid/products/:pid', ['USER', 'PREMIUM'], async (req, res) => {
             try{
                 res.sendSuccess(await cartController.addProduct(req, res))
             }catch(error){

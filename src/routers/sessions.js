@@ -44,6 +44,31 @@ class SessionRouter extends RouterClass {
             }
         })
 
+        this.post('/recoverpassword', ['PUBLIC'], async (req, res) => {
+            try{
+                res.sendSuccess(await userController.recoverPassword(req, res))
+            }catch(error){
+                res.sendServerError(error.message)
+            }
+        })
+
+        this.post('/updatepassword', ['PUBLIC'], async (req, res) => {
+            try{
+                res.sendSuccess(await userController.updatePassword(req, res))
+            }catch(error){
+                res.sendServerError(error.message)
+            }
+        })
+
+
+        this.post('/premium/:uid', ['ADMIN'], async (req, res) => {
+            try{
+                res.sendSuccess(await userController.premiumUser(req, res))
+            }catch(error){
+                res.sendServerError(error.message)
+            }
+        })
+
         this.get('/github', ['PUBLIC'],authenticateGithub, async (req, res)=>{})
         
         this.get('/githubcallback', ['PUBLIC'], authenticateGithub,  async (req, res) => {

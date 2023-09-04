@@ -75,6 +75,8 @@ class ProductController {
         try{
             const product = req.body
 
+            req.user.user.role === 'premium' ? product.owner = req.user.user.email : product.owner = 'admin'
+
             if(!product.title || !product.price || !product.code || !product.stock){
                 CustomError.createError({
                     name: 'Product creation error',
@@ -94,6 +96,11 @@ class ProductController {
     update = async (req, res) => {
         try{
             const product = req.body
+            
+            if(req.user.user.role === 'premium' && req.user.user.email !== product.owner){
+                res.send({status: 'error', message: "You can't update products you don't own"})
+            }
+
             const updatedProduct = await productService.updateProduct(req.params.pid, product)
             return { updatedProduct }
         }catch (error){

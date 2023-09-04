@@ -29,6 +29,7 @@ mainRouter.use('/loggerTest', (req, res, next) => {
     req.logger.debug('testing debug log')
     res.send('Logger')
 })
+
 mainRouter.use('*', (req, res, next) => {
     res.status(404).send({status: "error", error: 'Requested path not found',});
 })
