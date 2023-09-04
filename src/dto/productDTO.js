@@ -8,6 +8,7 @@ class ProductDto{
         this.stock = product.stock
         this.code = product.code
         this.status = product.status
+        this.owner = product.owner
     }
 }
 

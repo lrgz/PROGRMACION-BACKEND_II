@@ -1,6 +1,6 @@
 const productController = require('../controller/productsController')
 const cartController = require('../controller/cartsController')
-const { authToken } = require('../utils/jwt')
+const { authToken, authTokenResetPassword } = require('../utils/jwt')
 const RouterClass = require('./routeClass')
 
 
@@ -31,6 +31,14 @@ class ViewRouter extends RouterClass {
 
         this.get('/login', ['PUBLIC'], async (req, res) => {
             res.render('login', {})
+        })
+
+        this.get('/recoverPassword', ['PUBLIC'], async (req, res) => {
+            res.render('recoverpassword', {})
+        })
+
+        this.get('/updatePassword/:token', ['PUBLIC'], authTokenResetPassword, async (req, res) => {
+            res.render('updatePassword', {token: req.params.token})
         })
 
         this.get('/register', ['PUBLIC'], async (req, res) => {

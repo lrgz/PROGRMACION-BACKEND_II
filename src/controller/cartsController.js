@@ -28,6 +28,13 @@ class CartController {
 
     addProduct = async (req, res) => {
         try{
+            const product = await productService.getById(req.params.pid)
+            
+            if(req.user.user.role === 'premium' && req.user.user.email === product.owner){
+                res.send({status: 'error', message: "You can't add products to your cart that you own"})
+            }
+        
+
             const addedProduct = await cartService.addProductToCart(req.params.cid, req.params.pid)
             return { addedProduct }
         }catch (error){

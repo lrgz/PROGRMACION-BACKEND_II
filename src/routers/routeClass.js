@@ -18,7 +18,9 @@ class RouterClass {
             try{
                 await callback.apply(this, params)
             }catch(error){
-                params[1].status(500).send(error)
+                if (!params[1].headersSent) { 
+                    params[1].status(500).json({ error: error.message }); 
+                }
             }
         })
     }
