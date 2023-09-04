@@ -48,7 +48,7 @@ class UserController {
     login = async(req, res,next) => {
         const { email, password } = req.body
     
-        const userDB = await userService.getUserByEmail(email)
+        const userDB = await userService.getByEmail(email)
             try{
                 if(!userDB) return res.send({status: 'error', message: 'There is not a user with the email: ' + email})
                 
