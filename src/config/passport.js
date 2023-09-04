@@ -4,7 +4,7 @@ const GitHubStrategy = require('passport-github2').Strategy
 const jwtStrategy = require('passport-jwt')
 
 
-const userManager = new UserManager
+//const userManager = new UserManager
 
 
 const JWTStrategy = jwtStrategy.Strategy;
