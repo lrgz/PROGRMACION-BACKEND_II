@@ -45,8 +45,9 @@ class UserRepository{
 
     async getByEmail(email){
 
+        console.log("estoy en el repositoryu")
         const result = await this.dao.getUserByEmail(email)
-
+        console.log("repositoryu resutl-->",result)
         return result
 
     }

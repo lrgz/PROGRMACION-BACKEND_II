@@ -4,6 +4,7 @@
 const express = require('express')
 const objectConfig = require('./config/config')
 const { addLogger, logger } = require('./config/logger')
+
 const handlebars = require('express-handlebars')
 const { Server } = require('socket.io')
 
@@ -13,11 +14,10 @@ const socketProduct = require('./utils/socketProducts')
 const socketChat = require('./utils/socketChat')
 
 
-const cookieParser = require('cookie-parser')
-
 
 const passport = require('passport')
 const { initPassport, initPassportGithub } = require('./config/passport')
+const cookieParser = require('cookie-parser')
 
 
 /**
@@ -65,8 +65,9 @@ app.use(cookieParser())
 
 initPassport()
 initPassportGithub()
+
 app.use(passport.initialize())
-app.use(passport.session())
+
 
 
 /**
