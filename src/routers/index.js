@@ -30,6 +30,23 @@ mainRouter.use('/loggerTest', (req, res, next) => {
     res.send('Logger')
 })
 
+const swaggerJsDoc = require('swagger-jsdoc')
+const swaggerUiExpress = require('swagger-ui-express')
+
+const swaggerOptions = {
+    definition: {
+        openapi: '3.0.1',
+        info: {
+            title: 'Documentation of my eCommerce api',
+            description: 'This is the documentation of my api that I have developed for an ecommerce in the Coderhouse backend course.'
+        }
+    },
+    apis: [`./docs/**/*.yaml`]
+}
+const specs = swaggerJsDoc(swaggerOptions)
+mainRouter.use('/api/docs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs))
+
+
 mainRouter.use('*', (req, res, next) => {
     res.status(404).send({status: "error", error: 'Requested path not found',});
 })

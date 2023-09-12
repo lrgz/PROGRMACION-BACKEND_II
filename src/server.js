@@ -79,12 +79,5 @@ app.use(passport.initialize())
 app.use(mainRouter)
 
 
-app.use("*", (req, res) => {
-    res.status(404).send({status: "Error", message: `Requested path not found`,});
-});
-
-
-
-
 socketProduct(ioSocket)
 socketChat(ioSocket)

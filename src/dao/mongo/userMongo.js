@@ -48,8 +48,7 @@ class UserManagerMongo{
 
 
     async addUser(user){
-        try{
-            console("entre en adduser del dao")
+        try{            
             return await userModel.create(user)
         }catch (error) {
             return new Error(error)

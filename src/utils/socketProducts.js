@@ -13,6 +13,8 @@ const socketProduct = async (ioSocket) => {
     
     ioSocket.on('connection', socket => {
 
+        logger.info("New client connected in /realtimeproducts");
+
         socket.emit('products', products)
 
         socket.on('addProduct', async data => {
