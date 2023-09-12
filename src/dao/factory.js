@@ -32,11 +32,11 @@ switch(process.env.PERSISTENCE){
 
     case 'FILE':
 
-        const UserDaoFile = require('../dao/filesystem/user.file')
+        const UserDaoFile = require('../dao/filesystem/userFile')
 
-        const ProductDaoFile = require('../dao/filesystem/product.file')
+        const ProductDaoFile = require('../dao/filesystem/productFile')
 
-        const CartDaoFile = require('../dao/filesystem/cart.file')
+        const CartDaoFile = require('../dao/filesystem/cartFile')
 
 
         UserDao = UserDaoFile
@@ -45,7 +45,7 @@ switch(process.env.PERSISTENCE){
 
         CartDao = CartDaoFile
 
-    break;
+        break;
 
 }
 

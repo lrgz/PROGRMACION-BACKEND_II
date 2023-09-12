@@ -5,7 +5,7 @@ const { generateToken, generateTokenResetPassword, decodeJWT } = require('../uti
 const CustomError = require('../utils/Errors/errorMessage')
 const Errors = require('../utils/Errors/errors')
 const { generateUserErrorInfo } = require('../utils/Errors/errorMessage')
-const transport = require('../utils/nodemailer')
+const transport = require('../utils/nodemail')
 
 class UserController {
 
@@ -93,7 +93,7 @@ class UserController {
                 const token = generateTokenResetPassword(userDB)
 
                 let result = await transport.sendMail({
-                    from: 'Recover Password <agustingomezdev@gmail.com>',
+                    from: 'Recover Password <lrgz.developer@gmail.com',
                     to: email,
                     subject: 'Recover password',
                     html: `

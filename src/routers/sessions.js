@@ -18,8 +18,7 @@ class SessionRouter extends RouterClass {
         })
 
         this.post('/register', ['PUBLIC'], async (req, res) => {
-            try{
-                
+            try{                
                 res.sendSuccess(await userController.register(req, res))
             }catch(error){
                 res.sendServerError(error)
@@ -28,7 +27,6 @@ class SessionRouter extends RouterClass {
 
         this.post('/login', ['PUBLIC'], async (req, res) => {
             try{
-                console.log("entrando al endpoint")
                 res.sendSuccess(await userController.login(req, res))
             }catch(error){
                 

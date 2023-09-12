@@ -32,7 +32,8 @@ class CartManagerMongo{
 
     async addProductToCart(cid, pid){ // cid = cartId, pid= productId
         const cart = await cartModel.findById(cid);
-        const indexProduct = cart.products.findIndex((item) => item._id == pid);
+        //const indexProduct = cart.products.findIndex((item) => item._id == pid);
+        const index = cart.products.findIndex(product => product.product.toString() === pid)
         if (indexProduct === -1) { // product not found
             const update = { $push: { products: { _id: pid, quantity: 1 } } };
             await cartModel.updateOne({ _id: cid }, update);
@@ -47,13 +48,16 @@ class CartManagerMongo{
     async deleteProductFromCart(cid, pid){
         const cart = await cartModel.findById(cid);        
 
-        const listProduct = cart.products.filter((item) => item._id != pid);
+        //const listProduct = cart.products.filter((item) => item._id != pid);
+        const listProduct = cart.products.findIndex(product => product.product == pid)
         if(listProduct === -1){
             return null
         }else{
             const filter = { _id: cid };
-            const update = { products: listProduct  }
-            await cartModel.updateOne(filter, update)
+            //const update = { products: listProduct  }            
+            //await cartModel.updateOne(filter, update)
+            const update = { $pull: { products: { product: pid } } }
+            await cartModel.findOneAndUpdate(filter, update)
         }
     }
 
@@ -68,7 +72,8 @@ class CartManagerMongo{
 
     async updateQuantity(cid, pid, quantity){
         
-        const cart = await cartModel.findById(cid);
+        //const cart = await cartModel.findById(cid);
+        const cart = await cartModel.findOne({_id: cid})
         const indexProduct = cart.products.findIndex((item) => item._id == pid);
         
 
