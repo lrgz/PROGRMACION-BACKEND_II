@@ -15,8 +15,6 @@ const socketProduct = require('./utils/socketProducts')
 const socketChat = require('./utils/socketChat')
 
 
-const cookieParser = require('cookie-parser')
-
 
 const passport = require('passport')
 const { initPassport, initPassportGithub } = require('./config/passport')
