@@ -22,6 +22,7 @@ const passport = require('passport')
 const { initPassport, initPassportGithub } = require('./config/passport')
 const cookieParser = require('cookie-parser')
 
+const cors = require('cors')
 
 /**
  * DEFINO PUERTO DE LA APP
@@ -63,6 +64,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use('/static', express.static(__dirname+'/public'))
 app.use(cookieParser())
+app.use(cors())
 
 
 
