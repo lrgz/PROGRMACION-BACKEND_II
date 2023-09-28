@@ -31,7 +31,6 @@ class UserManagerMongo{
 
     async getUserByLogin(email, password){
         try{
-            console.log("estyo n mondo login")
             return await userModel.findOne({email: email, password: password})
         }catch (error) {
             return new Error(error)
@@ -46,7 +45,14 @@ class UserManagerMongo{
         }
     }
 
-
+    async getInactiveUsers(option){
+        try{
+            return await userModel.find(option)
+        }catch(error){
+            return new Error(error)
+        }
+    }
+    
     async addUser(user){
         try{            
             return await userModel.create(user)
@@ -58,6 +64,19 @@ class UserManagerMongo{
     async updateUser(uid, user){
         try{
             return await userModel.findOneAndUpdate(uid, data)
+        }catch (error) {
+            return new Error(error)
+        }
+    }
+
+    async updateUserDocuments(uid, documentName, documentPath){
+        try{
+            const user = await userModel.findById(uid)
+
+            if(!user) return new Error('Error finding user')
+
+            const update = { $push: { documents: { name: documentName, reference: documentPath  } } }
+            await userModel.updateOne({ _id: uid }, update)
         }catch (error) {
             return new Error(error)
         }

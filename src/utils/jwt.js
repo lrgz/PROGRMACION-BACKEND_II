@@ -33,8 +33,8 @@ const authTokenResetPassword = (req, res, next) => {
     });
 };
 
-const decodeJWT = (token) => {
-    const payload = jwt.verify(token, process.env.JWT_RESET_PASSWORD_KEY)
+const decodeJWT = (token, signature) => {
+    const payload = jwt.verify(token, signature)
     return payload
 }
 

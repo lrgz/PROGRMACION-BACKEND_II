@@ -4,7 +4,7 @@ let userEmail, userRole
 
 fetchUserData = async () => {
     try{
-        const res = await fetch('/api/sessions/current')
+        const res = await fetch('/api/users/current')
             if (res.ok) {
                 const data = await res.json()
                 userEmail = data.payload.email
