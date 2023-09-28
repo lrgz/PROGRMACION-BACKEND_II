@@ -24,7 +24,6 @@ class ViewRouter extends RouterClass {
             }
         })
 
-
         this.get('/cart/:cid', ['PUBLIC'], authToken, async (req, res) => {
             res.render('cart', {status: 'succes', payload: await cartController.getById(req.params.cid)})
         })
@@ -43,6 +42,10 @@ class ViewRouter extends RouterClass {
 
         this.get('/register', ['PUBLIC'], async (req, res) => {
             res.render('register', {})
+        })
+ 
+        this.get('/multer', ['USER', 'PREMIUM'], async (req, res) => {
+            res.render('multer', {user: req.user.user})
         })
     }
 }

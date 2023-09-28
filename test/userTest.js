@@ -8,7 +8,7 @@ const requester = supertest('http://localhost:8080')
 
 mongoose.connect(process.env.MONGO)
 
-describe('Sessions testing', () => {
+describe('Users testing', () => {
     describe('DAO Testing', () => {
         before(() => {
             this.usersDao = new UserDao()
@@ -53,7 +53,7 @@ describe('Sessions testing', () => {
                 role: 'user',
             };
             
-            const res = await requester.post(`/api/sessions/register`).send(user)
+            const res = await requester.post(`/api/users/register`).send(user)
             expect(res.statusCode).to.equal(200)
             expect(res.body.payload.result).to.have.property('_id')
         })
@@ -63,11 +63,11 @@ describe('Sessions testing', () => {
                 password: "adminCoderhouse"
             }
             
-            const res = await requester.post(`/api/sessions/login`).send(login)
+            const res = await requester.post(`/api/users/login`).send(login)
             expect(res.statusCode).to.equal(200)
             expect(res.body.payload).to.have.property('access_token')
             
-            const resLogout = await requester.get('/api/sessions/logout')
+            const resLogout = await requester.get('/api/users/logout')
             expect(resLogout.statusCode).to.equal(200)
         })
     })
